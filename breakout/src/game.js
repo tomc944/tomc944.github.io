@@ -104,7 +104,7 @@ function createBall() {
   if (goofyMode) {
     ball = game.add.sprite(gameWidth, game.world.height-25, 'brickball');
   } else {
-    ball = game.add.sprite(gameWidth, game.world.height-25, 'sam');
+    ball = game.add.sprite(gameWidth, game.world.height-25, 'ball');
   }
 
   ball.anchor.set(0.5);
