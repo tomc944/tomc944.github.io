@@ -1,6 +1,6 @@
 # Two Person Snake
-You can start playing at the live link [here]. (http://tomc944.github.io/Snake-2p/)
-To look at jQueryLite, the framework I built and used extensively in this game, click [here]. (https://github.com/tomc944/jquery_lite)
+You can start playing at the live link [here] (http://tomc944.github.io/Snake-2p/)/
+To look at jQueryLite, the framework I built and used extensively in this game, click [here] (https://github.com/tomc944/jquery_lite).
 
 ### Description
 Two-Person Snake is a tweak on the classic Snake game. Instead of one player controlling a snake, we have two different snakes controlled by two different users.
