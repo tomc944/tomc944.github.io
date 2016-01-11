@@ -1,5 +1,5 @@
 # Two Person Snake
-You can start playing at the live link [here] (http://tomc944.github.io/Snake-2p/)/
+You can start playing at the live link [here] (http://tomc944.github.io/Snake-2p/).
 To look at jQueryLite, the framework I built and used extensively in this game, click [here] (https://github.com/tomc944/jquery_lite).
 
 ### Description
