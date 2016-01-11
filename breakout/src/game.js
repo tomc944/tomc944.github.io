@@ -38,11 +38,13 @@ function preload() {
   game.scale.maxWidth = game.width * 1.5;
   game.stage.backgroundColor = "#eee";
   game.load.image('sam', 'assets/img/sam.png');
+  game.load.image('wrench', 'assets/img/wrench.png');
   game.load.image('reset', 'assets/img/reset.png');
   game.load.image('paddle', 'assets/img/paddle.png');
   game.load.image('brickball', 'assets/img/brick.png')
   game.load.image('normalButton', 'assets/img/normal.png');
   game.load.image('goofyButton', 'assets/img/goofy.png')
+  game.load.image('object', 'assets/img/object.png')
   game.load.spritesheet('ball', 'assets/img/wobble.png', 20, 20);
   // game.load.spritesheet('button', '../assets/img/button.png', 120, 40);
   game.load.audio('gameover', 'assets/sound/gameover.wav');
@@ -102,7 +104,7 @@ function resetGame() {
 
 function createBall() {
   if (goofyMode) {
-    ball = game.add.sprite(gameWidth, game.world.height-25, 'brickball');
+    ball = game.add.sprite(gameWidth, game.world.height-25, 'wrench');
   } else {
     ball = game.add.sprite(gameWidth, game.world.height-25, 'ball');
   }
@@ -272,7 +274,7 @@ function setIndividualBrick() {
   var brickX = (r*(brickInfo.width+brickInfo.padding))+brickInfo.offset.left;
   var brickY = (c*(brickInfo.height+brickInfo.padding))+brickInfo.offset.top;
   if (goofyMode) {
-    newBrick = game.add.sprite(brickX, brickY, 'sam');
+    newBrick = game.add.sprite(brickX, brickY, 'object');
   } else {
     newBrick = game.add.sprite(brickX, brickY, 'brickball')
   }
