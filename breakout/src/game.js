@@ -37,19 +37,19 @@ function preload() {
   game.scale.maxHeight = game.height * 1.5;
   game.scale.maxWidth = game.width * 1.5;
   game.stage.backgroundColor = "#eee";
-  game.load.image('sam', '../assets/img/sam.png');
-  game.load.image('reset', '../assets/img/reset.png');
-  game.load.image('paddle', '../assets/img/paddle.png');
-  game.load.image('brickball', '../assets/img/brick.png')
-  game.load.image('normalButton', '../assets/img/normal.png');
-  game.load.image('goofyButton', '../assets/img/goofy.png')
-  game.load.spritesheet('ball', '../assets/img/wobble.png', 20, 20);
+  game.load.image('sam', 'assets/img/sam.png');
+  game.load.image('reset', 'assets/img/reset.png');
+  game.load.image('paddle', 'assets/img/paddle.png');
+  game.load.image('brickball', 'assets/img/brick.png')
+  game.load.image('normalButton', 'assets/img/normal.png');
+  game.load.image('goofyButton', 'assets/img/goofy.png')
+  game.load.spritesheet('ball', 'assets/img/wobble.png', 20, 20);
   // game.load.spritesheet('button', '../assets/img/button.png', 120, 40);
-  game.load.audio('gameover', '../assets/sound/gameover.wav');
-  game.load.audio('score', '../assets/sound/score.wav');
-  game.load.audio('blip', '../assets/sound/blip.wav');
-  game.load.audio('oof', '../assets/sound/oof.wav');
-  game.load.audio('victory', '../assets/sound/victory.mp3');
+  game.load.audio('gameover', 'assets/sound/gameover.wav');
+  game.load.audio('score', 'assets/sound/score.wav');
+  game.load.audio('blip', 'assets/sound/blip.wav');
+  game.load.audio('oof', 'assets/sound/oof.wav');
+  game.load.audio('victory', 'assets/sound/victory.mp3');
   gameHeight = game.world.height*0.5;
   gameWidth = game.world.width*0.5;
 }
