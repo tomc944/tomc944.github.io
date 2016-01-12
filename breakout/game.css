@@ -10,4 +10,6 @@
 
 .game-inner-container {
   margin: 0 auto;
+  border-color: "black";
+  border-radius: 5px;
 }
