@@ -263,6 +263,6 @@ Breakout.Play.prototype = {
   }
 }
 
-var game = new Phaser.Game(480, 320, Phaser.CANVAS, '');
+var game = new Phaser.Game(480, 320, Phaser.AUTO, '');
 game.state.add('Play', Breakout.Play);
 game.state.start('Play');

@@ -3,10 +3,16 @@
   <head>
     <meta charset="utf-8">
     <title>Breakout Game</title>
-    <style> * { padding: 0; margin: 0; } </style>
     <script src="lib/phaser.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="game.css">
   </head>
   <body class="background">
-    <script src='src/game.js'></script>
+    <div class="game-outer-container">
+      <h1 class="goofy">Goofy Breakout</h1>
+      <div class="game-interior-container">
+        <script src='src/game.js'></script>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,3 +1,13 @@
-.background {
-  
+.goofy {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 24;
+}
+
+.game-outer-container {
+  text-align: center;
+}
+
+.game-inner-container {
+  margin: 0 auto;
 }
