@@ -4,43 +4,58 @@ Breakout.Play = function() {};
 Breakout.Play.prototype = {
 
   preload: function() {
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.scale.pageAlignHorizontally = true;
-    this.scale.pageAlignVertically = true;
-    this.scale.maxHeight = this.height;
-    this.scale.maxWidth = this.width;
-    this.stage.backgroundColor = "#eee";
-    this.load.image('sam', 'assets/img/sam.png');
+    this.loadImages();
+    this.loadAudio();
+  },
+
+  create: function() {
+    this.setPhysics();
+    this.setScale();
+    this.setInitialVariables();
+    this.startSound();
+    this.createPaddle();
+    this.createStartButtons();
+    this.addBannerText();
+  },
+
+  update: function() {
+    if(this.playing) {
+      this.physics.arcade.collide(this.ball, this.bricks,
+                                  this.ballHitBrick.bind(this));
+      this.physics.arcade.collide(this.ball, this.paddle,
+                                  this.ballHitPaddle.bind(this));
+
+      this.paddle.x = this.input.x || this.gameWidth;
+      this.ball.angle += 2;
+    }
+  },
+
+  loadImages: function() {
+    this.load.image('ball', 'assets/img/ball.png')
     this.load.image('wrench', 'assets/img/wrench.png');
     this.load.image('reset', 'assets/img/reset.png');
     this.load.image('paddle', 'assets/img/paddle.png');
-    this.load.image('brickball', 'assets/img/brick.png')
     this.load.image('normalButton', 'assets/img/normal.png');
     this.load.image('goofyButton', 'assets/img/goofy.png')
-    this.load.image('object', 'assets/img/object.png')
-    this.load.spritesheet('ball', 'assets/img/wobble.png', 20, 20);
-    // game.load.spritesheet('button', '../assets/img/button.png', 120, 40);
+    this.load.image('justinlong', 'assets/img/justinlong.png');
+    this.load.image('brick', 'assets/img/brick.png')
+  },
+
+  loadAudio: function() {
     this.load.audio('gameover', 'assets/sound/gameover.wav');
     this.load.audio('score', 'assets/sound/score.wav');
     this.load.audio('blip', 'assets/sound/blip.wav');
     this.load.audio('oof', 'assets/sound/oof.wav');
     this.load.audio('victory', 'assets/sound/victory.mp3');
-    this.score = 0;
-    this.lives = 3;
-    this.textStyle = {font: '18px Oxygen', fill: '#0095DD'};
-    this.hits = 0;
-    this.gameHeight = this.world.height*0.5;
-    this.gameWidth = this.world.width*0.5;
-    this.playing = false;
-    this.goofyMode = false;
   },
 
-  create: function() {
-    this.setPhysics();
-    this.loadSound();
-    this.createPaddle();
-    this.createStartButtons();
-    this.addBannerText();
+  setInitialVariables: function() {
+    this.score = 0;
+    this.hits = 0;
+    this.lives = 3;
+    this.playing = false;
+    this.goofyMode = false;
+    this.textStyle = {font: '18px Ubuntu', fill: '#0095DD'};
   },
 
   setPhysics: function() {
@@ -48,8 +63,19 @@ Breakout.Play.prototype = {
     this.physics.arcade.checkCollision.down = false;
   },
 
+  setScale: function() {
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
+    this.scale.maxHeight = this.game.height;
+    this.scale.maxWidth = this.game.width;
+    this.stage.backgroundColor = "#eee";
+    this.gameHeight = this.world.height*0.5;
+    this.gameWidth = this.world.width*0.5;
+  },
+
   createStartButtons: function() {
-    this.normalButton = this.add.button(this.gameWidth, this.gameHeight,
+    this.normalButton = this.add.button(this.gameWidth, this.gameHeight + 20  ,
                                   'normalButton', this.startGame, this);
     this.normalButton.anchor.set(0.5);
 
@@ -105,7 +131,7 @@ Breakout.Play.prototype = {
     this.paddle.body.immovable = true;
   },
 
-  loadSound: function() {
+  startSound: function() {
     this.scoreSound = this.add.audio('score');
     this.scoreSound.loop = true;
     this.scoreSound.volume = 0.1;
@@ -121,7 +147,7 @@ Breakout.Play.prototype = {
     this.livesText = this.add.text(this.world.width-5, 5, 'Lives: '+ this.lives,
                               this.textStyle);
     this.livesText.anchor.set(1,0);
-    this.lifeLostText = this.add.text(this.gameWidth, this.gameHeight,
+    this.lifeLostText = this.add.text(this.gameWidth, this.gameHeight + 20,
                                 'Life lost, click to continue', this.textStyle);
     this.lifeLostText.anchor.set(0.5);
     this.lifeLostText.visible = false;
@@ -142,6 +168,7 @@ Breakout.Play.prototype = {
         this.ball.body.velocity.set(150, -150);
       }, this);
     } else {
+      this.livesText.setText("Lives: "+ this.lives);
       this.gameover();
     }
   },
@@ -154,30 +181,27 @@ Breakout.Play.prototype = {
 
     this.gameoverSound.play();
 
-    this.gameoverText = this.add.text(this.gameWidth, this.gameHeight + 50,
+    this.gameoverText = this.add.text(this.gameWidth, this.gameHeight + 80,
                                 'You lost, game over!', this.textStyle)
     this.gameoverText.anchor.set(0.5);
     this.gameoverText.visible = true;
 
-    this.resetButton = this.add.button(this.gameWidth, this.gameHeight - 20,
+    this.resetButton = this.add.button(this.gameWidth, this.gameHeight + 30,
                                   'reset', this.resetGame, this);
     this.resetButton.anchor.set(0.5);
   },
 
 
-  update: function() {
-    if(this.playing) {
-      this.physics.arcade.collide(this.ball, this.bricks, this.ballHitBrick.bind(this));
-      this.physics.arcade.collide(this.ball, this.paddle, this.ballHitPaddle.bind(this));
-      this.paddle.x = this.input.x || this.gameWidth;
-      this.ball.angle += 2;
-    }
-  },
 
   ballHitBrick: function(ball, brick) {
     this.brickKill(brick);
-    this.oofSound.play();
-    // ball.animations.play('wobble');
+
+    if (this.goofyMode) {
+      this.oofSound.play();
+    } else {
+      this.blipSound.play();
+    }
+
     this.score += 10;
     this.scoreText.setText('Points: '+ this.score);
     this.checkWin();
@@ -194,12 +218,11 @@ Breakout.Play.prototype = {
 
   ballHitPaddle: function(ball, paddle) {
     this.hits += 1;
-    // ball.animations.play('wobble');
     this.blipSound.play();
     this.ball.body.velocity.x = -1*5*(this.paddle.x-this.ball.x);
 
     if (this.hits >= 10 && this.paddle.width >= 20) {
-      this.addle.scale.x -= 0.07;
+      this.paddle.scale.x -= 0.07;
     }
 
   },
@@ -237,7 +260,10 @@ Breakout.Play.prototype = {
         top: 50,
         left: 60
       },
-      padding: 10
+      padding: {
+        width: 10,
+        height: 20
+      }
     }
 
     this.bricks = game.add.group();
@@ -249,13 +275,18 @@ Breakout.Play.prototype = {
   },
 
   setIndividualBrick: function() {
-    var brickX = (r*(this.brickInfo.width+this.brickInfo.padding))+ this.brickInfo.offset.left;
-    var brickY = (c*(this.brickInfo.height+this.brickInfo.padding))+ this.brickInfo.offset.top;
+    var brickX = (r*(this.brickInfo.width+this.brickInfo.padding.width))
+                  + this.brickInfo.offset.left;
+    var brickY = (c*(this.brickInfo.height+this.brickInfo.padding.height))
+                  + this.brickInfo.offset.top;
+
     if (this.goofyMode) {
-      this.newBrick = this.add.sprite(brickX, brickY, 'object');
+      this.newBrick = this.add.sprite(brickX, brickY, 'justinlong');
+      this.newBrick.scale.setTo(.027, .027);
     } else {
-      this.newBrick = this.add.sprite(brickX, brickY, 'brickball')
+      this.newBrick = this.add.sprite(brickX, brickY, 'brick')
     }
+
     this.physics.enable(this.newBrick, Phaser.Physics.ARCADE);
     this.newBrick.body.immovable = true;
     this.newBrick.anchor.set(0.5);
@@ -263,6 +294,6 @@ Breakout.Play.prototype = {
   }
 }
 
-var game = new Phaser.Game(480, 320, Phaser.AUTO, '');
+var game = new Phaser.Game(480, 320, Phaser.CANVAS, '');
 game.state.add('Play', Breakout.Play);
 game.state.start('Play');
