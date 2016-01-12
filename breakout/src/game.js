@@ -212,6 +212,7 @@ Breakout.Play.prototype = {
     killTween.to({x:0,y:0}, 200, Phaser.Easing.Linear.None);
     killTween.onComplete.addOnce(function() {
       brick.kill();
+      this.checkWin();
     }, this);
     killTween.start();
   },
@@ -228,7 +229,7 @@ Breakout.Play.prototype = {
   },
 
   checkWin: function() {
-    if(this.score === this.brickInfo.count.row*this.brickInfo.count.col*10) {
+    if(this.bricks.total === 0) {
       this.winText = this.add.text(this.gameWidth, this.gameHeight + 50,
                                   'You won, play again?!', this.textStyle)
       this.winText.anchor.set(0.5);
