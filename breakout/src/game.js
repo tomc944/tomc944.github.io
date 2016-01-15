@@ -283,7 +283,6 @@ Breakout.Play.prototype = {
 
     if (this.goofyMode) {
       this.newBrick = this.add.sprite(brickX, brickY, 'justinlong');
-      this.newBrick.scale.setTo(.027, .027);
     } else {
       this.newBrick = this.add.sprite(brickX, brickY, 'brick')
     }
