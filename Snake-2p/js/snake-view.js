@@ -40,7 +40,7 @@ window.$l.extend(View.prototype, {
   },
 
   handleMouseEvent: function(e) {
-    window.$l('.twop').remove();
+    window.$l('#bootstrap-overrides').remove();
     this.board.playing = true;
   },
 
