@@ -60,13 +60,11 @@
 
 	var SIZE = 50;
 
-	function View(rootEl) {
+	function View($rootEl) {
 	  this.board = new Board(SIZE);
-	  this.$rootEl = rootEl;
+	  this.$rootEl = $rootEl;
 	  this.setupBoard();
 	  this.registerEvents();
-	  // this.currentScore = 0;
-	  // this.setScore();
 	  this.intervalId = window.setInterval(this.step.bind(this), 50);
 	}
 
@@ -101,12 +99,12 @@
 
 	  handleMouseEvent: function(e) {
 	    window.$l('.twop').remove();
+	    window.$l('.snake').html("");
 	    this.board.playing = true;
 	  },
 
 	  render: function() {
 	    window.$l('div').removeClass('snake-segment');
-	    window.$l('div').removeClass('snake-segment2');
 
 	    this.board.snake.segments.forEach(function(pos) {
 	      var row = pos[0];
@@ -115,34 +113,12 @@
 	        find('.row-' + row + '-col-'+ col).addClass('snake-segment');
 	    });
 
-
-	    this.board.snake2.segments.forEach(function(pos) {
-	      var row = pos[0];
-	      var col = pos[1];
-	      window.$l('.snake').
-	        find('.row-' + row + '-col-'+ col).addClass('snake-segment2');
-	    });
-
 	    window.$l('div').removeClass('apple');
 	    var applePos = this.board.applePos;
 
 	    window.$l('.snake').
 	      find('.row-' + applePos[0]+ "-col-" + applePos[1]).addClass('apple');
-
-	    // if (this.appleCollision()) {
-	    //   this.currentScore += 10;
-	    //   this.setScore();
-	    // }
-
 	  },
-
-	  // appleCollision: function () {
-	  //   var snakeHead = this.board.snake.segments[0]
-	  //
-	  //   return (this.board.applePos[0] === snakeHead[0] &&
-	  //           this.board.applePos[1] === snakeHead[1])
-	  // },
-
 	  step: function() {
 	    if (this.board.playing === true) {
 	      this.board.moveSnake();
@@ -227,7 +203,6 @@
 
 	function Board(boardSize) {
 	  this.snake = new Snake(boardSize, 'd');     // hold a snake
-	  this.snake2 = new Snake(boardSize - 20, 'l');
 	  this.applePos = null;             // stores an apple on the board
 	  this.numMoves = 0;
 	  this.boardSize = boardSize;
@@ -236,15 +211,8 @@
 	  this.playing = false;
 	}
 
-
-
-	Board.prototype.snakeSegments = function () {
-	  return this.snake2.segments.concat(this.snake.segments);
-	};
-
 	Board.prototype.moveSnake = function() {
 	  this.snake.move(KEYS1);
-	  this.snake2.move(KEYS2);
 	  this.numMoves += 1;
 
 	  if (this.isGameOver()) {
@@ -252,23 +220,17 @@
 	  } else if (this.isEatingApple(this.snake.segments)){
 	    this.snake.isGrowing = true;
 	    this.randomApple();
-	  } else if (this.isEatingApple(this.snake2.segments)){
-	    this.snake2.isGrowing = true;
-	    this.randomApple();
 	  }
 	};
 
 	Board.prototype.turnSnake = function (key) {
 	  if (KEYS1.indexOf(key) !== -1) {
 	    this.snake.turn(key, KEYS1);
-	  } else {
-	    this.snake2.turn(key, KEYS2);
 	  }
 	};
 
 	Board.prototype.isGameOver = function() {
-	  this.snakeHead1 = this.snake.segments[0];
-	  this.snakeHead2 = this.snake2.segments[0];
+	  this.snakeHead = this.snake.segments[0];
 
 	  if (this.checkAllCollisions()) {
 	    return true;
@@ -278,29 +240,20 @@
 	};
 
 	Board.prototype.checkAllCollisions = function() {
-	  return (this.snakeCollisons() ||
-	    this.isHeadHittingWall(this.snakeHead1) ||
-	    this.isHeadHittingWall(this.snakeHead2))
+	  return (this.hitsSelf() ||
+	    this.isHeadHittingWall(this.snakeHead))
 	}
 
-	Board.prototype.snakeSamePosition = function (i, j) {
-	  var totalSnakeSegments = this.snakeSegments();
-	  return totalSnakeSegments[i][0] === totalSnakeSegments[j][0] &&
-	  totalSnakeSegments[i][1] === totalSnakeSegments[j][1];
-	};
+	Board.prototype.hitsSelf = function() {
+	  var snakeBody = this.snake.segments.slice(1)
 
-	Board.prototype.snakeCollisons = function() {
-	  var totalSnakeSegments = this.snakeSegments();
-
-	  for (var i = 0; i<totalSnakeSegments.length - 1; i++) {
-	    for(var j = i+1; j<totalSnakeSegments.length; j++) {
-	      if (this.snakeSamePosition(i, j)){
-	        return true;
-	      }
+	  for (i=0; i<snakeBody.length; i++) {
+	    if (_.isEqual(snakeBody[i], this.snakeHead)) {
+	      return true
 	    }
 	  }
-	  return false;
-	};
+	  return false
+	}
 
 	Board.prototype.isHeadHittingWall = function(snakeHead) {
 	  if (snakeHead[0] < 0 || snakeHead[1] < 0

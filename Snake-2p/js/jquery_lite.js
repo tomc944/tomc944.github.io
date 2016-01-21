@@ -1,7 +1,4 @@
-if (typeof $l === 'undefined') {
-  window.$l = {};
-}
-(function() {
+(function(root) {
   var onreadyCallbacks = [];
 
   document.addEventListener("DOMContentLoaded", function(){
@@ -10,20 +7,20 @@ if (typeof $l === 'undefined') {
     });
   });
 
-  window.$l = function(el) {
+  root.$l = function(el) {
 
     if (el instanceof HTMLElement) {
-      return new window.DOMNodeCollection([el]);
+      return new root.DOMNodeCollection([el]);
     } else if (typeof el === 'string') {
       var elementList = document.querySelectorAll(el);
       var elementListArr = [].slice.apply(elementList);
-      return new window.DOMNodeCollection(elementListArr);
+      return new root.DOMNodeCollection(elementListArr);
     } else {
       onreadyCallbacks.push(el);
     }
   };
 
-  window.$l.extend = function (target) {
+  root.$l.extend = function (target) {
     var objs = ([].slice.apply(arguments)).slice(1);
     for (var i = 0; i < objs.length; i++) {
       for (var key in objs[i]) {
@@ -33,7 +30,7 @@ if (typeof $l === 'undefined') {
     return target;
   };
 
-  window.$l.ajax = function (options) {
+  root.$l.ajax = function (options) {
     var defaults = {
       method: "GET",
       url: "https://www.google.com/webhp?",
@@ -45,12 +42,12 @@ if (typeof $l === 'undefined') {
         console.log("An error occured.");}
     };
     options = this.extend(defaults, options);
-    var xmlhttp = new window.XMLHttpRequest();
+    var xmlhttp = new root.XMLHttpRequest();
     xmlhttp.open(options['method'], options['url'], true);
     xmlhttp.send();
   };
 
-  var Dom = window.DOMNodeCollection = function(arr) {
+  var Dom = root.DOMNodeCollection = function(arr) {
     this.nodes = arr;
   };
 
@@ -76,7 +73,7 @@ if (typeof $l === 'undefined') {
   };
 
   Dom.prototype.append = function(obj) {
-    if (obj instanceof(window.DOMNodeCollection)) {
+    if (obj instanceof(root.DOMNodeCollection)) {
       for (var i = 0; i < this.nodes.length; i++){
         for (var j =0; j < obj.nodes.length; j++){
           this.nodes[i].appendChild(obj.nodes[j]);
@@ -186,4 +183,4 @@ if (typeof $l === 'undefined') {
       node.removeEventListener(e, handler);
     });
   };
-})();
+})(this);

@@ -1,5 +1,6 @@
 .snake {
   width: 700px;
+  height: 700px;
   margin: 0 auto;
 }
 
@@ -11,17 +12,12 @@
 }
 
 .snake-segment {
-  background-color: white;
-}
-
-.snake-segment2 {
   background-color: blue;
 }
 
 .apple {
   background-color: red;
 }
-
 
 .title {
   text-align: center;
