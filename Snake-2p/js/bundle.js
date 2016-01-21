@@ -99,7 +99,6 @@
 
 	  handleMouseEvent: function(e) {
 	    window.$l('.twop').remove();
-	    window.$l('.snake').html("");
 	    this.board.playing = true;
 	  },
 
