@@ -3,10 +3,10 @@ Breakout.Boot = function () {};
 Breakout.Preloader = function() {};
 Breakout.Play = function() {};
 
-Breakout.Boot = function() {
+Breakout.Boot.prototype = {
 
   preload: function() {
-    this.game.load.image('loading', 'assets/justinlong.png');
+    this.game.load.image('loading', 'assets/img/justinlong.png');
   },
 
   create: function() {
@@ -16,16 +16,17 @@ Breakout.Boot = function() {
     this.scale.maxHeight = this.game.height;
     this.scale.maxWidth = this.game.width;
     this.stage.backgroundColor = "#eee";
-    this.gameHeight = this.world.height*0.5;
-    this.gameWidth = this.world.width*0.5;
+
     this.game.state.start("Preloader")
   }
 }
 
 Breakout.Preloader.prototype = {
   preload: function() {
+    this.gameHeight = this.world.height*0.5;
+    this.gameWidth = this.world.width*0.5;
     var loadingBar = this.add.sprite(this.gameHeight, this.gameWidth, 'loading')
-    loadingBar.anchor.setTo(0.5, 0.5)
+    loadingBar.anchor.setTo(0.5)
     this.load.setPreloadSprite(loadingBar)
     this.load.image('ball', 'assets/img/ball.png')
     this.load.image('wrench', 'assets/img/wrench.png');
@@ -49,6 +50,8 @@ Breakout.Preloader.prototype = {
 Breakout.Play.prototype = {
 
   create: function() {
+    this.gameHeight = this.world.height*0.5;
+    this.gameWidth = this.world.width*0.5;
     this.setPhysics();
     this.setInitialVariables();
     this.startSound();
