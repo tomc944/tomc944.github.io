@@ -237,6 +237,7 @@ Breakout.Play.prototype = {
   },
 
   checkWin: function() {
+    
     if(this.bricks.total === 0) {
       this.winText = this.add.text(this.gameWidth, this.gameHeight + 50,
                                   'You won, play again?!', this.textStyle)
@@ -248,9 +249,6 @@ Breakout.Play.prototype = {
       this.resetButton.anchor.set(0.5);
 
       this.ball.kill();
-
-      this.scoreSound.loop = false;
-      this.scoreSound.stop();
 
       this.victorySound.play();
 
