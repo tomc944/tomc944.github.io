@@ -12,7 +12,7 @@
   float: left;
   height: 14px;
   width: 14px;
-  background-color: black;
+  background-color: white;
 }
 
 .snake-segment {
@@ -33,6 +33,7 @@
 }
 
 #bootstrap-overrides {
+  z-index: 1;
   width: auto;
   height: 50px;
   margin: auto auto;
@@ -42,4 +43,5 @@
   position: absolute;
   background-color: transparent;
   border-color: transparent;
+  color: black;
 }

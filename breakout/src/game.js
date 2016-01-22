@@ -1,16 +1,55 @@
 var Breakout = function() {};
+Breakout.Boot = function () {};
+Breakout.Preloader = function() {};
 Breakout.Play = function() {};
 
-Breakout.Play.prototype = {
+Breakout.Boot = function() {
 
   preload: function() {
-    this.loadImages();
-    this.loadAudio();
+    this.game.load.image('loading', 'assets/justinlong.png');
   },
 
   create: function() {
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
+    this.scale.maxHeight = this.game.height;
+    this.scale.maxWidth = this.game.width;
+    this.stage.backgroundColor = "#eee";
+    this.gameHeight = this.world.height*0.5;
+    this.gameWidth = this.world.width*0.5;
+    this.game.state.start("Preloader")
+  }
+}
+
+Breakout.Preloader.prototype = {
+  preload: function() {
+    var loadingBar = this.add.sprite(this.gameHeight, this.gameWidth, 'loading')
+    loadingBar.anchor.setTo(0.5, 0.5)
+    this.load.setPreloadSprite(loadingBar)
+    this.load.image('ball', 'assets/img/ball.png')
+    this.load.image('wrench', 'assets/img/wrench.png');
+    this.load.image('reset', 'assets/img/reset.png');
+    this.load.image('paddle', 'assets/img/paddle.png');
+    this.load.image('normalButton', 'assets/img/normal.png');
+    this.load.image('goofyButton', 'assets/img/goofy.png')
+    this.load.image('justinlong', 'assets/img/justinlong.png');
+    this.load.image('brick', 'assets/img/brick.png')
+    this.load.audio('gameover', 'assets/sound/gameover.wav');
+    this.load.audio('score', 'assets/sound/score.wav');
+    this.load.audio('blip', 'assets/sound/blip.wav');
+    this.load.audio('oof', 'assets/sound/oof.wav');
+    this.load.audio('victory', 'assets/sound/victory.mp3');
+  },
+  create: function () {
+    this.game.state.start("Play")
+  }
+}
+
+Breakout.Play.prototype = {
+
+  create: function() {
     this.setPhysics();
-    this.setScale();
     this.setInitialVariables();
     this.startSound();
     this.createPaddle();
@@ -30,25 +69,6 @@ Breakout.Play.prototype = {
     }
   },
 
-  loadImages: function() {
-    this.load.image('ball', 'assets/img/ball.png')
-    this.load.image('wrench', 'assets/img/wrench.png');
-    this.load.image('reset', 'assets/img/reset.png');
-    this.load.image('paddle', 'assets/img/paddle.png');
-    this.load.image('normalButton', 'assets/img/normal.png');
-    this.load.image('goofyButton', 'assets/img/goofy.png')
-    this.load.image('justinlong', 'assets/img/justinlong.png');
-    this.load.image('brick', 'assets/img/brick.png')
-  },
-
-  loadAudio: function() {
-    this.load.audio('gameover', 'assets/sound/gameover.wav');
-    this.load.audio('score', 'assets/sound/score.wav');
-    this.load.audio('blip', 'assets/sound/blip.wav');
-    this.load.audio('oof', 'assets/sound/oof.wav');
-    this.load.audio('victory', 'assets/sound/victory.mp3');
-  },
-
   setInitialVariables: function() {
     this.score = 0;
     this.hits = 0;
@@ -61,17 +81,6 @@ Breakout.Play.prototype = {
   setPhysics: function() {
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.physics.arcade.checkCollision.down = false;
-  },
-
-  setScale: function() {
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.scale.pageAlignHorizontally = true;
-    this.scale.pageAlignVertically = true;
-    this.scale.maxHeight = this.game.height;
-    this.scale.maxWidth = this.game.width;
-    this.stage.backgroundColor = "#eee";
-    this.gameHeight = this.world.height*0.5;
-    this.gameWidth = this.world.width*0.5;
   },
 
   createStartButtons: function() {
@@ -295,5 +304,8 @@ Breakout.Play.prototype = {
 }
 
 var game = new Phaser.Game(480, 320, Phaser.CANVAS, '');
+game.state.add('Boot', Breakout.Boot)
+game.state.add('Preloader', Breakout.Preloader)
 game.state.add('Play', Breakout.Play);
-game.state.start('Play');
+
+game.state.start('Boot');
