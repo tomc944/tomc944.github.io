@@ -1,6 +1,6 @@
 #Goofy Breakout
 
-Everyone remembers Breakout, the cult-classic Atari game from the mid 70s, but we have all seen that. There's a ball and there are some bricks. In this version of Breakout, you can play normally, or you can play goofy! Throw wrenches at a face!
+Everyone remembers Breakout, the cult-classic Atari game from the mid 70s, but we have all seen that. There's a ball and there are some bricks. In this version of Breakout, you can play normally, or you can play goofy! Throw wrenches at a face - it's dodgeball themed!
 
 This game was implemented using JS and the extended Phaser library to quickly and effectively add physics, sprites, and other goodies.
 
