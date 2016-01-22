@@ -6,7 +6,7 @@ Breakout.Play = function() {};
 Breakout.Boot.prototype = {
 
   preload: function() {
-    this.game.load.image('loading', 'assets/img/justinlong.png');
+    this.game.load.image('loading', 'assets/img/loadbar.png');
   },
 
   create: function() {
