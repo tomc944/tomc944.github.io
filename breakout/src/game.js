@@ -6,7 +6,7 @@ Breakout.Play = function() {};
 Breakout.Boot.prototype = {
 
   preload: function() {
-    this.game.load.image('loading', 'assets/img/loadbar.png');
+    this.game.load.image('loadingbar', 'assets/img/loadbar.png');
   },
 
   create: function() {
@@ -25,7 +25,9 @@ Breakout.Preloader.prototype = {
   preload: function() {
     this.gameHeight = this.world.height*0.5;
     this.gameWidth = this.world.width*0.5;
-    var loadingBar = this.add.sprite(this.gameHeight, this.gameWidth, 'loading')
+    text = game.add.text(this.gameWidth, this.gameHeight - 50, "Loading...")
+    text.anchor.setTo(0.5)
+    var loadingBar = this.add.sprite(this.gameWidth, this.gameHeight, 'loadingbar')
     loadingBar.anchor.setTo(0.5)
     this.load.setPreloadSprite(loadingBar)
     this.load.image('ball', 'assets/img/ball.png')
@@ -37,7 +39,6 @@ Breakout.Preloader.prototype = {
     this.load.image('justinlong', 'assets/img/justinlong.png');
     this.load.image('brick', 'assets/img/brick.png')
     this.load.audio('gameover', 'assets/sound/gameover.wav');
-    this.load.audio('score', 'assets/sound/score.wav');
     this.load.audio('blip', 'assets/sound/blip.wav');
     this.load.audio('oof', 'assets/sound/oof.wav');
     this.load.audio('victory', 'assets/sound/victory.mp3');
@@ -144,11 +145,6 @@ Breakout.Play.prototype = {
   },
 
   startSound: function() {
-    this.scoreSound = this.add.audio('score');
-    this.scoreSound.loop = true;
-    this.scoreSound.volume = 0.1;
-    this.scoreSound.play();
-
     this.blipSound = this.add.audio('blip');
     this.gameoverSound = this.add.audio('gameover');
     this.oofSound = this.add.audio('oof');
