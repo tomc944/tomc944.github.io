@@ -4,11 +4,16 @@
   font-size: 24;
 }
 
-.game-outer-container {
-  text-align: center;
+.game {
+  margin: 0 auto:
 }
 
-.game-inner-container {
+.game-outer-container {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.game-interior-container {
   margin: 0 auto;
   border-color: "black";
   border-radius: 5px;

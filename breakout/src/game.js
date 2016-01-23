@@ -237,7 +237,7 @@ Breakout.Play.prototype = {
   },
 
   checkWin: function() {
-    
+
     if(this.bricks.total === 0) {
       this.winText = this.add.text(this.gameWidth, this.gameHeight + 50,
                                   'You won, play again?!', this.textStyle)
@@ -300,7 +300,7 @@ Breakout.Play.prototype = {
   }
 }
 
-var game = new Phaser.Game(480, 320, Phaser.CANVAS, '');
+var game = new Phaser.Game(480, 320, Phaser.CANVAS, 'game-interior-container');
 game.state.add('Boot', Breakout.Boot)
 game.state.add('Preloader', Breakout.Preloader)
 game.state.add('Play', Breakout.Play);
