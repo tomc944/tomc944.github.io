@@ -182,9 +182,6 @@ Breakout.Play.prototype = {
   },
 
   gameover: function() {
-    this.scoreSound.loop = false;
-    this.scoreSound.stop();
-
     this.ball.kill();
 
     this.gameoverSound.play();
