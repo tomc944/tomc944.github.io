@@ -116,7 +116,7 @@ Breakout.Play.prototype = {
   },
 
   resetGame: function() {
-    location.reload();
+    this.game.state.start('Play');
   },
 
   createBall: function() {
