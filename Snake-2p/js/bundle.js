@@ -123,7 +123,6 @@
 	      this.board.moveSnake();
 	      this.render();
 	      if (this.board.gameOver) {
-	        debugger
 	        // window.$l('div').append(<button class="btn btn-primary" id="bootstrap-overrides" type="button">Reset!</button>)
 	        window.clearInterval(this.intervalId);
 	      }

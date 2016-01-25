@@ -1,186 +1,207 @@
 (function(root) {
-  var onreadyCallbacks = [];
+  var _onReadyCallbacks = [], _docReady = false;
 
   document.addEventListener("DOMContentLoaded", function(){
-    onreadyCallbacks.forEach(function(callback) {
-        callback();
-    });
+    _docReady = true;
+    _onReadyCallbacks.forEach(function(callback) { callback(); });
   });
 
-  root.$l = function(el) {
-
-    if (el instanceof HTMLElement) {
-      return new root.DOMNodeCollection([el]);
-    } else if (typeof el === 'string') {
-      var elementList = document.querySelectorAll(el);
-      var elementListArr = [].slice.apply(elementList);
-      return new root.DOMNodeCollection(elementListArr);
+  var registerDocCallback = function(callback) {
+    if(!_docReady) {
+      _onReadyCallbacks.push(callback)
     } else {
-      onreadyCallbacks.push(el);
+      callback();
     }
   };
 
-  root.$l.extend = function (target) {
-    var objs = ([].slice.apply(arguments)).slice(1);
-    for (var i = 0; i < objs.length; i++) {
-      for (var key in objs[i]) {
-        target[key] = (objs[i])[key];
+  var DOMNodeCollection = function(nodes) {
+    this.nodes = Array.prototype.slice.call(nodes);
+  };
+
+  DOMNodeCollection.prototype = {
+    each: function(cb) {
+      this.nodes.forEach(cb);
+    },
+    html: function(html) {
+      if (this.nodes.length === 0) { return; }
+
+      if (arguments.length === 0){
+        return this.nodes[0].innerHTML;
+      } else {
+        this.nodes.forEach(function (node) {
+          node.innerHTML = string;
+        });
       }
-    }
-    return target;
-  };
+    },
 
-  root.$l.ajax = function (options) {
-    var defaults = {
-      method: "GET",
-      url: "https://www.google.com/webhp?",
-      data: "sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=jquery%20addclass%20duplicate",
-      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-      success: function(){
-        console.log("Successful!");},
-      error: function(){
-        console.log("An error occured.");}
-    };
-    options = this.extend(defaults, options);
-    var xmlhttp = new root.XMLHttpRequest();
-    xmlhttp.open(options['method'], options['url'], true);
-    xmlhttp.send();
-  };
+    empty: function () {
+      this.html("");
+    },
 
-  var Dom = root.DOMNodeCollection = function(arr) {
-    this.nodes = arr;
-  };
 
-  Dom.prototype.html = function (string) {
-    if (this.nodes.length === 0) { return; }
-
-    if (arguments.length === 0){
-      return this.nodes[0].innerHTML;
-    } else {
-      this.innerHTML = string;
-      this.nodes.forEach(function (node) {
-        node.innerHTML = string;
-      });
-    }
-  };
-
-  Dom.prototype.empty = function () {
-    this.html("");
-  };
-
-  Dom.prototype.text = function (string) {
-    this.textContent = string
-  };
-
-  Dom.prototype.append = function(obj) {
-    if (obj instanceof(root.DOMNodeCollection)) {
-      for (var i = 0; i < this.nodes.length; i++){
-        for (var j =0; j < obj.nodes.length; j++){
-          this.nodes[i].appendChild(obj.nodes[j]);
+    append: function(obj) {
+      if (obj instanceof DOMNodeCollection) {
+        for (var i = 0; i < this.nodes.length; i++){
+          for (var j =0; j < obj.nodes.length; j++){
+            this.nodes[i].appendChild(obj.nodes[j]);
+          }
         }
+      } else if (typeof obj === "string") {
+        this.nodes.forEach(function (node) {
+          node.innerHTML += obj;
+        });
+      } else {
+        this.nodes.forEach(function (node) {
+          node.appendChild(obj);
+        });
       }
-    } else if (typeof obj === "string") {
-      this.nodes.forEach(function (node) {
-        node.innerHTML += obj;
-      });
-    } else {
-      this.nodes.forEach(function (node) {
-        node.appendChild(obj);
-      });
-    }
-  };
+    },
 
-  Dom.prototype.attr = function(attributeName, value) {
-    if (value === 'undefined') {
-      for (var i = 0; i < this.nodes.length; i++) {
-        var result = this.nodes[i].attributes[attributeName];
-        if (result !== 'undefined') {
-          return result;
-        }
+
+    attr: function(key, value) {
+      if(typeof val === 'string') {
+        this.each(function(node) {
+          node.setAttribute(key, val);
+        });
+      } else {
+        return this.nodes[0].getAttribute(key);
       }
-    } else {
-      for (var i = 0; i < this.nodes.length; i++) {
-        var result = this.nodes[i].attributes[attributeName];
-        if (result !== 'undefined') {
-          this.nodes[i].attributes[attributeName] = value;
-        }
-      }
-    }
-  };
+    },
+
 
   // Potentially you can use Element.classList
 
-  Dom.prototype.addClass = function (newClassName) {
-    this.nodes.forEach(function (node) {
-      // node.className += " " + newClassName;
-      var classArr = node.className.split(" ");
-      if (classArr.indexOf(newClassName) === -1) {
-        classArr.push(newClassName);
-        node.className = classArr.join(" ");
+    addClass: function (newClass) {
+      this.each(function(node) {
+        node.classList.add(newClass);
+      });
+    },
+
+
+    removeClass: function (oldClass) {
+      this.each(function(node) {
+        node.classList.remove(oldClass);
+      });
+    },
+
+
+    children: function () {
+      var childNodes = [];
+      this.each(function(node) {
+        var childrenArr = [].slice.apply(node.children);
+        childNodes = childNodes.concat(childrenArr);
+      });
+      return new DOMNodeCollection(childNodes);
+    },
+
+
+    parent: function () {
+      var parentNodes = [];
+      this.each(function(node) {
+        parentNode.push(node.parentNode)
+      });
+      return new DOMNodeCollection(parentNodes);
+    },
+
+
+    find: function(selector) {
+      var foundNodes = [];
+      this.each(function(node) {
+        var nodeList = [].slice.apply(node.querySelectorAll(selector));
+        foundNodes = foundNodes.concat(nodeList);
+      });
+      return new DOMNodeCollection(foundNodes);
+    },
+
+
+    remove: function() {
+      this.each(function(node) {
+        node.parentNode.removeChild(node);
+      });
+    },
+
+
+    on: function (e, callback) {
+      this.each(function(node) {
+        node.addEventListener(e, callback)
+      })
+    },
+
+
+    off: function (e, selector, handler) {
+      this.each(function(node) {
+        node.removeEventListener(e, callback)
+      })
+    }
+  };
+
+  root.$l = function(argument) {
+    var returnValue;
+    switch(typeof(argument)) {
+      case "function":
+        registerDocCallback(argument);
+        break;
+      case "string":
+        var nodes = [].slice.call(document.querySelectorAll(argument), 0);
+        returnValue = new DOMNodeCollection(nodes);
+      case 'object':
+        if (argument instanceof HTMLElement) {
+          returnValue = new DOMNodeCollection([argument]);
+        }
+        break;
+    }
+    return returnValue;
+  };
+
+  root.$l.extend = function (target) {
+    var otherObjs = Array.prototype.slice.call(arguments, 1);
+    otherObjs.forEach(function(obj) {
+      for(var prop in obj){
+        if (obj.hasOwnProperty(prop)) {
+          target[prop] = obj[prop]
+        }
       }
-    });
+    })
+    return target;
   };
 
-  Dom.prototype.removeClass = function (removeClassName) {
-    this.nodes.forEach(function (node) {
-      var classArr = node.className.split(" ");
-      var idx = classArr.indexOf(removeClassName);
-      if ( idx !== -1) {
-        classArr = classArr.slice(0, idx).concat(classArr.slice(idx+1));
-        node.className = classArr.join(" ");
+  var toQueryString = function(obj) {
+    var result = '';
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        result += prop + "=" + obj[prop] + '&';
       }
-      // node.className.replace(removeClassName, "");
-    });
-  };
+    }
+    // we subtract off the end of the string to get rid of the last amperstand
+    return result.substring(0, result.length - 1);
+  }
 
-  Dom.prototype.children = function () {
-    var childNodes = [];
-    this.nodes.forEach( function(node) {
-      var childrenArr = [].slice.apply(node.children);
-      childNodes = childNodes.concat(childrenArr);
-    });
-    return new Dom(childNodes);
-  };
+  root.$l.ajax = function (options) {
+    var myRequest = new XMLHttpRequest();
+    var defaults = {
+      contentType: 'application/x-www-form-urlencode; charset=UTF-8',
+      method: 'GET',
+      url: "",
+      success: function(){},
+      error: function(){},
+      data: {}
+    };
 
-  Dom.prototype.parent = function () {
-    var parentNodes = [];
-    this.nodes.forEach( function(node) {
-      var pNode = node.parentNode;
-      if (parentNodes.indexOf(pNode) === -1) {
-        parentNodes.push(pNode);
+    options = root.$l.extend(defaults, options);
+
+    if (options.method.toUpperCase() === "GET") {
+      options.url += "?" + toQueryString(options.data);
+    }
+
+    myRequest.open(options.method, options.url, true);
+    myRequest.onload = function(e) {
+      if (myRequest.status === 200) {
+        options.success(myRequest.response);
+      } else {
+        options.error(myRequest.response);
       }
-    });
-    return new Dom(parentNodes);
-  };
+    };
 
-  Dom.prototype.find = function(selector) {
-    var resultArr = [];
-    this.nodes.forEach(function(node) {
-      var result = [].slice.apply(node.querySelectorAll(selector));
-      resultArr = resultArr.concat(result);
-    });
-    return new Dom(resultArr);
-  };
-
-  Dom.prototype.remove = function() {
-    this.nodes.forEach(function(node) {
-      node.remove();
-    });
-  };
-
-  Dom.prototype.on = function (e, selector, handler) {
-    var targetNodes = this.find(selector).nodes;
-
-    targetNodes.forEach(function(node) {
-      node.addEventListener(e, handler);
-    });
-  };
-
-  Dom.prototype.off = function (e, selector, handler) {
-    var targetNodes = this.find(selector).nodes;
-
-    targetNodes.forEach(function(node) {
-      node.removeEventListener(e, handler);
-    });
+    myRequest.send(JSON.stringify(options.data))
   };
 })(this);
