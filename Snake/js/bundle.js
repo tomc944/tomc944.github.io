@@ -80,11 +80,6 @@
 	      }
 	    }
 	  },
-	  //
-	  // setScore: function() {
-	  //   var $score = window.$l('.score')
-	  //   $score.html("Score: " + this.currentScore);
-	  // },
 
 	  registerEvents: function() {
 	    document.addEventListener('keydown', this.handleKeyEvent.bind(this));
@@ -118,12 +113,19 @@
 	    window.$l('.snake').
 	      find('.row-' + applePos[0]+ "-col-" + applePos[1]).addClass('apple');
 	  },
+
+	  restart: function() {
+	    this.setupBoard();
+	  },
+
 	  step: function() {
 	    if (this.board.playing === true) {
 	      this.board.moveSnake();
 	      this.render();
 	      if (this.board.gameOver) {
-	        // window.$l('div').append(<button class="btn btn-primary" id="bootstrap-overrides" type="button">Reset!</button>)
+	        var resetButton = '<button class="btn btn-primary" id="bootstrap-overrides" type="button">Reset!</button>'
+	        window.$l('div').append(resetButton)
+	        window.$l('resetButton').on('click', this.restart)
 	        window.clearInterval(this.intervalId);
 	      }
 	    }

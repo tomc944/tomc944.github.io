@@ -68,9 +68,6 @@
       }
     },
 
-
-  // Potentially you can use Element.classList
-
     addClass: function (newClass) {
       this.each(function(node) {
         node.classList.add(newClass);
