@@ -2,9 +2,10 @@ var Board = require('./snake.js');
 
 var SIZE = 50;
 
-function View($rootEl) {
+function View($rootEl, restart) {
   this.board = new Board(SIZE);
   this.$rootEl = $rootEl;
+  this.restart = restart || false;
   this.setupBoard();
   this.registerEvents();
   this.intervalId = window.setInterval(this.step.bind(this), 50);
@@ -25,7 +26,14 @@ window.$l.extend(View.prototype, {
 
   registerEvents: function() {
     document.addEventListener('keydown', this.handleKeyEvent.bind(this));
-    document.addEventListener('click', this.handleMouseEvent.bind(this));
+    
+    if (!this.restart) {
+      var startButton = '<button class="start-button" type="button">Start Game!</button>'
+      window.$l('figure').append(startButton)
+      window.$l('.start-button').on('click', this.startGame.bind(this))
+    } else {
+      this.board.playing = true;
+    }
   },
 
   handleKeyEvent: function(e) {
@@ -34,8 +42,8 @@ window.$l.extend(View.prototype, {
     this.board.turnSnake(direction);
   },
 
-  handleMouseEvent: function(e) {
-    window.$l('#bootstrap-overrides').remove();
+  startGame: function(e) {
+    window.$l('.start-button').remove();
     this.board.playing = true;
   },
 
@@ -56,8 +64,20 @@ window.$l.extend(View.prototype, {
       find('.row-' + applePos[0]+ "-col-" + applePos[1]).addClass('apple');
   },
 
-  restart: function() {
-    this.setupBoard();
+  createReset: function() {
+    var resetButton = '<button class="reset-button" type="button">Gameover... Play again?</button>'
+    window.$l('figure').append(resetButton)
+    window.$l('.reset-button').on('click', this.restartGame.bind(this))
+    window.clearInterval(this.intervalId);
+  },
+
+  restartGame: function() {
+    // removes old board
+    var gameDivs = window.$l('.snake').children()
+    gameDivs.remove()
+    // creates new board
+    var rootEl = window.$l('.snake');
+    new View(rootEl, true);
   },
 
   step: function() {
@@ -65,10 +85,7 @@ window.$l.extend(View.prototype, {
       this.board.moveSnake();
       this.render();
       if (this.board.gameOver) {
-        var resetButton = '<button class="btn btn-primary" id="bootstrap-overrides" type="button">Reset!</button>'
-        window.$l('div').append(resetButton)
-        window.$l('resetButton').on('click', this.restart)
-        window.clearInterval(this.intervalId);
+        this.createReset();
       }
     }
   },

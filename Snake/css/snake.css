@@ -27,21 +27,28 @@
   text-align: center;
 }
 
-.game-container {
-  margin: 0 auto;
+.reset-button {
+  z-index: 1;
+  width: 100px;
+  height: 50px;
+  top: 350px;
+  left: calc(50% - 50px);
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
   text-align: center;
+  color: black;
 }
 
-#bootstrap-overrides {
+.start-button {
   z-index: 1;
-  width: auto;
+  width: 100px;
   height: 50px;
-  margin: auto auto;
-  top: 50%;
-  right: 36%;
-  text-align: center;
+  top: 350px;
+  left: calc(50% - 50px);
+  margin-left: auto;
+  margin-right: auto;
   position: absolute;
-  background-color: transparent;
-  border-color: transparent;
+  text-align: center;
   color: black;
 }
