@@ -155,7 +155,7 @@ Breakout.Play.prototype = {
     this.livesText = this.add.text(this.world.width-5, 5, 'Lives: '+ this.lives,
                               this.textStyle);
     this.livesText.anchor.set(1,0);
-    this.lifeLostText = this.add.text(this.gameWidth, this.gameHeight + 20,
+    this.lifeLostText = this.add.text(this.gameWidth, this.gameHeight + 40,
                                 'Life lost, click to continue', this.textStyle);
     this.lifeLostText.anchor.set(0.5);
     this.lifeLostText.visible = false;
@@ -186,12 +186,12 @@ Breakout.Play.prototype = {
 
     this.gameoverSound.play();
 
-    this.gameoverText = this.add.text(this.gameWidth, this.gameHeight + 80,
+    this.gameoverText = this.add.text(this.gameWidth, this.gameHeight + 100,
                                 'You lost, game over!', this.textStyle)
     this.gameoverText.anchor.set(0.5);
     this.gameoverText.visible = true;
 
-    this.resetButton = this.add.button(this.gameWidth, this.gameHeight + 30,
+    this.resetButton = this.add.button(this.gameWidth, this.gameHeight + 50,
                                   'reset', this.resetGame, this);
     this.resetButton.anchor.set(0.5);
   },
@@ -257,16 +257,16 @@ Breakout.Play.prototype = {
       width: 50,
       height: 20,
       count: {
-        row: 7,
-        col: 3
+        row: 12,
+        col: 5
       },
       offset: {
         top: 50,
         left: 60
       },
       padding: {
-        width: 10,
-        height: 20
+        width: 11,
+        height: 30
       }
     }
 
@@ -297,7 +297,7 @@ Breakout.Play.prototype = {
   }
 }
 
-var game = new Phaser.Game(480, 320, Phaser.CANVAS, 'game-interior-container');
+var game = new Phaser.Game(804, 536, Phaser.CANVAS, 'game-interior-container');
 game.state.add('Boot', Breakout.Boot)
 game.state.add('Preloader', Breakout.Preloader)
 game.state.add('Play', Breakout.Play);
