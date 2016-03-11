@@ -52,3 +52,11 @@
   text-align: center;
   color: black;
 }
+
+.instructions {
+  text-align: center;
+}
+
+.main {
+  background-color: bisque;
+}
