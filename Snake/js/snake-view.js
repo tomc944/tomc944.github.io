@@ -1,6 +1,6 @@
 var Board = require('./snake.js');
 
-var SIZE = 50;
+var SIZE = 30;
 
 function View($rootEl, restart) {
   this.board = new Board(SIZE);
@@ -26,7 +26,7 @@ window.$l.extend(View.prototype, {
 
   registerEvents: function() {
     document.addEventListener('keydown', this.handleKeyEvent.bind(this));
-    
+
     if (!this.restart) {
       var startButton = '<button class="start-button" type="button">Start Game!</button>'
       window.$l('figure').append(startButton)

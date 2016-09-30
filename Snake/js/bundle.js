@@ -58,7 +58,7 @@
 
 	var Board = __webpack_require__(2);
 
-	var SIZE = 50;
+	var SIZE = 30;
 
 	function View($rootEl, restart) {
 	  this.board = new Board(SIZE);
@@ -84,7 +84,7 @@
 
 	  registerEvents: function() {
 	    document.addEventListener('keydown', this.handleKeyEvent.bind(this));
-	    
+
 	    if (!this.restart) {
 	      var startButton = '<button class="start-button" type="button">Start Game!</button>'
 	      window.$l('figure').append(startButton)
