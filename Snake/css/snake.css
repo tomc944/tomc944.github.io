@@ -1,0 +1,62 @@
+.snake {
+  width: 720px;
+  height: 720px;
+  margin: 0 auto;
+  text-align: center;
+  border-width: 10px;
+  border-style: solid;
+  border-color: green;
+}
+
+.board-piece {
+  float: left;
+  height: 14px;
+  width: 14px;
+  background-color: white;
+}
+
+.snake-segment {
+  background-color: blue;
+}
+
+.apple {
+  background-color: red;
+}
+
+.title {
+  text-align: center;
+}
+
+.reset-button {
+  z-index: 1;
+  width: 100px;
+  height: 50px;
+  top: 350px;
+  left: calc(50% - 50px);
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  text-align: center;
+  color: black;
+}
+
+.start-button {
+  z-index: 1;
+  width: 100px;
+  height: 50px;
+  top: 350px;
+  left: calc(50% - 50px);
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  text-align: center;
+  color: black;
+}
+
+.instructions {
+  text-align: center;
+}
+
+.main {
+  background-color: bisque;
+}
