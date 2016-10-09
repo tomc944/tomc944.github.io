@@ -105,7 +105,7 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 
 #headerwrap {
-	background: url(../img/homepage.jpg) no-repeat center top;
+	background: url(http://res.cloudinary.com/dpdxfgx58/image/upload/v1475977504/homepage_ss4hzq.jpg) no-repeat center top;
 	margin-top: -70px;
 	padding-top: 250px;
 	text-align:center;
@@ -201,7 +201,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #aboutwrap {
-	background: url(../img/about.jpg) no-repeat center top;
+	background: url(http://res.cloudinary.com/dpdxfgx58/image/upload/v1475977432/about_arhuk0.jpg) no-repeat center top;
 	margin-top: -70px;
 	padding-top: 250px;
 	text-align:center;
