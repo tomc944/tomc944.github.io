@@ -97,6 +97,7 @@
 	  handleKeyEvent: function(e) {
 	    var code = e.keyCode;
 	    var direction = (String.fromCharCode(code)).toLowerCase();
+	    debugger
 	    this.board.turnSnake(direction);
 	  },
 
