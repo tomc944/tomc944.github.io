@@ -25,7 +25,7 @@ window.$l.extend(View.prototype, {
   },
 
   registerEvents: function() {
-    document.addEventListener('keypress', this.handleKeyEvent.bind(this));
+    document.addEventListener('keydown', this.handleKeyEvent.bind(this));
 
     if (!this.restart) {
       var startButton = '<button class="start-button" type="button">Start Game!</button>'
@@ -38,8 +38,7 @@ window.$l.extend(View.prototype, {
 
   handleKeyEvent: function(e) {
     var code = e.keyCode;
-    var direction = (String.fromCharCode(code)).toLowerCase();
-    this.board.turnSnake(direction);
+    this.board.turnSnake(code);
   },
 
   startGame: function(e) {

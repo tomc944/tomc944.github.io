@@ -83,7 +83,7 @@
 	  },
 	
 	  registerEvents: function() {
-	    document.addEventListener('keypress', this.handleKeyEvent.bind(this));
+	    document.addEventListener('keydown', this.handleKeyEvent.bind(this));
 	
 	    if (!this.restart) {
 	      var startButton = '<button class="start-button" type="button">Start Game!</button>'
@@ -96,8 +96,7 @@
 	
 	  handleKeyEvent: function(e) {
 	    var code = e.keyCode;
-	    var direction = (String.fromCharCode(code)).toLowerCase();
-	    this.board.turnSnake(direction);
+	    this.board.turnSnake(code);
 	  },
 	
 	  startGame: function(e) {
@@ -158,11 +157,11 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	var KEYS1 = ['w', 's', 'a', 'd'];
+	var KEYS1 = [38, 40, 37, 39];
 	var DIFF = [[-1,  0],
 	            [ 1,  0],
 	            [ 0, -1],
-	            [ 0,  1]];
+	            [ 0, 1]];
 	
 	function Snake(boardSize, direction) {
 	  this.direction = direction; // set default direction "right"
@@ -175,7 +174,7 @@
 	Snake.prototype.createSnake = function(length) {
 	  var row = Math.floor(this.boardSize / 2);
 	  var colStart = Math.floor(this.boardSize / 4);
-	  
+	
 	  for (var i = 0; i < length; i++) {
 	    this.segments.unshift([row, colStart + i]);
 	  }
@@ -220,7 +219,7 @@
 	
 	
 	function Board(boardSize) {
-	  this.snake = new Snake(boardSize, 'd');     // hold a snake
+	  this.snake = new Snake(boardSize, 39);     // hold a snake
 	  this.applePos = null;             // stores an apple on the board
 	  this.numMoves = 0;
 	  this.boardSize = boardSize;
