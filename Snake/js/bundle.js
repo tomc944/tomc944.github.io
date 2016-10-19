@@ -97,7 +97,6 @@
 	  handleKeyEvent: function(e) {
 	    var code = e.keyCode;
 	    var direction = (String.fromCharCode(code)).toLowerCase();
-	    debugger
 	    this.board.turnSnake(direction);
 	  },
 
@@ -176,9 +175,9 @@
 
 	Snake.prototype.createSnake = function(length) {
 	  var row = Math.floor(this.boardSize / 2);
-	  var col = Math.floor(this.boardSize / 2);
-	  for ( col ; col < length + row; col++) {
-	    this.segments.unshift([row, col]);
+	  var colStart = Math.floor(this.boardSize / 4);
+	  for (var i = 0; i < length; i++) {
+	    this.segments.unshift([row, colStart + i]);
 	  }
 	};
 
