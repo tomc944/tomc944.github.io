@@ -75,7 +75,7 @@ window.$l.extend(View.prototype, {
     // removes old board
     var gameDivs = window.$l('.snake').children()
     gameDivs.remove()
-    document.removeEventListener('keydown', this.handleKeyEvent.bind(this));
+    document.addEventListener('keydown', this.handleKeyEvent.bind(this));
 
     // creates new board
     var rootEl = window.$l('.snake');

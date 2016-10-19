@@ -25,7 +25,6 @@ Snake.prototype.move = function(keys) {
   var diff = DIFF[keys.indexOf(this.direction)];
   var newHead = [currentHead[0] + diff[0], currentHead[1] + diff[1]];
   this.segments.unshift(newHead);
-  
   if (!this.isGrowing){
     this.segments.pop();
   }
