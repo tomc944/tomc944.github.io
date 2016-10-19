@@ -8,7 +8,7 @@ function View($rootEl, restart) {
   this.restart = restart || false;
   this.setupBoard();
   this.registerEvents();
-  this.intervalId = window.setInterval(this.step.bind(this), 50);
+  this.intervalId = window.setInterval(this.step.bind(this), 75);
 }
 
 window.$l.extend(View.prototype, {
