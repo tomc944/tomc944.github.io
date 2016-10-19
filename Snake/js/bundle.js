@@ -156,19 +156,16 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	View = __webpack_require__(1)
+/***/ function(module, exports) {
 
 	var KEYS1 = ['w', 's', 'a', 'd'];
-	var KEYS2 = ['i', 'k', 'j', 'l'];
 	var DIFF = [[-1,  0],
 	            [ 1,  0],
 	            [ 0, -1],
 	            [ 0,  1]];
 
 	function Snake(boardSize, direction) {
-	  this.direction = direction; // set default direction "up"
+	  this.direction = direction; // set default direction "right"
 	  this.segments = [];   // stores the snake
 	  this.boardSize = boardSize;
 	  this.createSnake(8);
@@ -188,6 +185,7 @@
 	  var diff = DIFF[keys.indexOf(this.direction)];
 	  var newHead = [currentHead[0] + diff[0], currentHead[1] + diff[1]];
 	  this.segments.unshift(newHead);
+	  
 	  if (!this.isGrowing){
 	    this.segments.pop();
 	  }
