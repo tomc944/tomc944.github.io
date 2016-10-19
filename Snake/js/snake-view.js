@@ -25,7 +25,7 @@ window.$l.extend(View.prototype, {
   },
 
   registerEvents: function() {
-    document.addEventListener('keydown', this.handleKeyEvent.bind(this));
+    document.addEventListener('keypress', this.handleKeyEvent.bind(this));
 
     if (!this.restart) {
       var startButton = '<button class="start-button" type="button">Start Game!</button>'

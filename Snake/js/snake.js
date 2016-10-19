@@ -15,6 +15,7 @@ function Snake(boardSize, direction) {
 Snake.prototype.createSnake = function(length) {
   var row = Math.floor(this.boardSize / 2);
   var colStart = Math.floor(this.boardSize / 4);
+  
   for (var i = 0; i < length; i++) {
     this.segments.unshift([row, colStart + i]);
   }
