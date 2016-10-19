@@ -1,14 +1,13 @@
-View = require('./snake-view.js')
+var View = require('./snake-view.js')
 
 var KEYS1 = ['w', 's', 'a', 'd'];
-var KEYS2 = ['i', 'k', 'j', 'l'];
 var DIFF = [[-1,  0],
             [ 1,  0],
             [ 0, -1],
             [ 0,  1]];
 
 function Snake(boardSize, direction) {
-  this.direction = direction; // set default direction "up"
+  this.direction = direction; // set default direction "right"
   this.segments = [];   // stores the snake
   this.boardSize = boardSize;
   this.createSnake(8);
