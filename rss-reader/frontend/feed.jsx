@@ -8,11 +8,12 @@ import localforage from 'localforage';
 
 const styles = {
   actionStyle: {
-    marginRight: 20,
-    marginTop  : 20
+    marginLeft: 20,
+    marginTop : 20
   },
   textStyle: {
-    width: '60%'
+    width: '60%',
+    textAlign: 'center'
   },
   container: {
     marginTop: 20,
@@ -125,18 +126,20 @@ class Feed extends Component {
     debugger
     return (
       <div style={styles.container}>
-        <TextField
-          hintText="Enter RSS Feed Link"
-          style={styles.textStyle}
-          onChange={this.updateText('inputUrl')}
-          value={this.state.inputUrl}
-        />
-        <FloatingActionButton
-          onClick={this.clickAddRSS}
-          mini={true}
-          style={styles.actionStyle}>
-          <ContentAdd />
-        </FloatingActionButton>
+        <div style={styles.container}>
+          <TextField
+            hintText="Enter RSS Feed Link"
+            style={styles.textStyle}
+            onChange={this.updateText('inputUrl')}
+            value={this.state.inputUrl}
+          />
+          <FloatingActionButton
+            onClick={this.clickAddRSS}
+            mini={true}
+            style={styles.actionStyle}>
+            <ContentAdd />
+          </FloatingActionButton>
+        </div>
         {this.createFeedEntries()}
       </div>
     )

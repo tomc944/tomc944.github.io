@@ -99,7 +99,7 @@
 	      ),
 	      _react2.default.createElement(
 	        _Tabs.Tab,
-	        { label: 'Subscribed RSS Sources' },
+	        { label: 'RSS Sources' },
 	        _react2.default.createElement(
 	          'div',
 	          null,
@@ -33096,11 +33096,12 @@
 
 	var styles = {
 	  actionStyle: {
-	    marginRight: 20,
+	    marginLeft: 20,
 	    marginTop: 20
 	  },
 	  textStyle: {
-	    width: '60%'
+	    width: '60%',
+	    textAlign: 'center'
 	  },
 	  container: {
 	    marginTop: 20,
@@ -33242,19 +33243,23 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { style: styles.container },
-	        _react2.default.createElement(_TextField2.default, {
-	          hintText: 'Enter RSS Feed Link',
-	          style: styles.textStyle,
-	          onChange: this.updateText('inputUrl'),
-	          value: this.state.inputUrl
-	        }),
 	        _react2.default.createElement(
-	          _FloatingActionButton2.default,
-	          {
-	            onClick: this.clickAddRSS,
-	            mini: true,
-	            style: styles.actionStyle },
-	          _react2.default.createElement(_add2.default, null)
+	          'div',
+	          { style: styles.container },
+	          _react2.default.createElement(_TextField2.default, {
+	            hintText: 'Enter RSS Feed Link',
+	            style: styles.textStyle,
+	            onChange: this.updateText('inputUrl'),
+	            value: this.state.inputUrl
+	          }),
+	          _react2.default.createElement(
+	            _FloatingActionButton2.default,
+	            {
+	              onClick: this.clickAddRSS,
+	              mini: true,
+	              style: styles.actionStyle },
+	            _react2.default.createElement(_add2.default, null)
+	          )
 	        ),
 	        this.createFeedEntries()
 	      );

@@ -19,7 +19,7 @@ const App = (
         <Tab label="Feed">
           <Feed />
         </Tab>
-        <Tab label="Subscribed RSS Sources">
+        <Tab label="RSS Sources">
           <div>
             Got here!
           </div>
