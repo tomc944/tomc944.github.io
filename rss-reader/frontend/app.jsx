@@ -6,6 +6,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import Feed from './feed';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -14,7 +15,9 @@ injectTapEventPlugin();
 const App = (
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <div>
-      <AppBar title="RSS Offline Reader" />
+      <AppBar title="RSS Offline Reader"
+        iconElementRight={<ActionHome color={red500}/>}
+        />
       <Tabs>
         <Tab label="Feed">
           <Feed />
@@ -32,7 +35,7 @@ const App = (
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('entry');
   if (root) { render(App, root) }
-  
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
              .register('./service-worker.js')

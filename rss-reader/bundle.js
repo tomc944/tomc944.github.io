@@ -74,6 +74,10 @@
 
 	var _Tabs = __webpack_require__(382);
 
+	var _home = __webpack_require__(393);
+
+	var _home2 = _interopRequireDefault(_home);
+
 	var _reactTapEventPlugin = __webpack_require__(387);
 
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
@@ -88,7 +92,9 @@
 	  _react2.default.createElement(
 	    'div',
 	    null,
-	    _react2.default.createElement(_AppBar2.default, { title: 'RSS Offline Reader' }),
+	    _react2.default.createElement(_AppBar2.default, { title: 'RSS Offline Reader',
+	      iconElementRight: _react2.default.createElement(_home2.default, { color: red500 })
+	    }),
 	    _react2.default.createElement(
 	      _Tabs.Tabs,
 	      null,
@@ -38703,6 +38709,43 @@
 	};
 
 	module.exports = keyOf;
+
+/***/ },
+/* 393 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(352);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(361);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ActionHome = function ActionHome(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z' })
+	  );
+	};
+	ActionHome = (0, _pure2.default)(ActionHome);
+	ActionHome.displayName = 'ActionHome';
+	ActionHome.muiName = 'SvgIcon';
+
+	exports.default = ActionHome;
 
 /***/ }
 /******/ ]);
