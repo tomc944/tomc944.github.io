@@ -7,6 +7,7 @@ import AppBar from 'material-ui/AppBar';
 import Feed from './feed';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import ActionHome from 'material-ui/svg-icons/action/home';
+import {red500} from 'material-ui/styles/colors';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
