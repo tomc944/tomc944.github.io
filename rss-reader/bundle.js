@@ -115,6 +115,12 @@
 	  if (root) {
 	    (0, _reactDom.render)(App, root);
 	  }
+
+	  if ('serviceWorker' in navigator) {
+	    navigator.serviceWorker.register('./service-worker.js').then(function () {
+	      console.log('Service Worker Registered');
+	    });
+	  }
 	});
 
 /***/ },
@@ -33201,7 +33207,6 @@
 	          return feed;
 	        }
 	      }).then(function (result) {
-	        debugger;
 	        self.setState({ feed: result.slice(0, 10) });
 	      });
 	    }
@@ -33239,7 +33244,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      debugger;
 	      return _react2.default.createElement(
 	        'div',
 	        { style: styles.container },

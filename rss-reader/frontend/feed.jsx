@@ -99,7 +99,6 @@ class Feed extends Component {
         return feed;
       }
     }).then(function(result) {
-      debugger
       self.setState({ feed: result.slice(0, 10)})
     });
   }
@@ -123,7 +122,6 @@ class Feed extends Component {
     });
   }
   render() {
-    debugger
     return (
       <div style={styles.container}>
         <div style={styles.container}>

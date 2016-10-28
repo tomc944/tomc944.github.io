@@ -32,4 +32,10 @@ const App = (
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('entry');
   if (root) { render(App, root) }
+  
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+             .register('./service-worker.js')
+             .then(function() { console.log('Service Worker Registered'); });
+  }
 });
